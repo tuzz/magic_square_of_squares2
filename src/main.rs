@@ -1,4 +1,5 @@
 use itertools::Itertools;
+use thin_vec::ThinVec;
 use std::ops::Range;
 
 fn main() {
@@ -34,7 +35,7 @@ fn main() {
         }
 
         let max_sum = (square * 2) as usize;
-        sums_by_complement_class.iter_mut().for_each(|vec| vec.resize(max_sum / 72 + 1, vec![]));
+        sums_by_complement_class.iter_mut().for_each(|vec| vec.resize(max_sum / 72 + 1, ThinVec::new()));
 
         for (i, squares) in squares_by_residue_class.iter().enumerate() {
             let complement_class = (6 - residue_class - i) % 3;
@@ -53,7 +54,7 @@ fn main() {
     }
 }
 
-fn magic_sums<'a>(just_finished: Range<u64>, squares: &[u64], sums: &'a [Vec<u32>]) -> impl Iterator<Item=(u64, impl Iterator<Item=(u64, &'a [u32])>)> {
+fn magic_sums<'a>(just_finished: Range<u64>, squares: &[u64], sums: &'a [ThinVec<u32>]) -> impl Iterator<Item=(u64, impl Iterator<Item=(u64, &'a [u32])>)> {
     just_finished.step_by(72).map(move |magic_sum| {
         let minimum_square = (magic_sum as f64 / 3.) as u64;
         let minimum_index = squares.partition_point(|&s| s < minimum_square);

@@ -22,4 +22,11 @@ name = "magic_square_of_squares"
 version = "0.1.0"
 dependencies = [
  "itertools",
+ "thin-vec",
 ]
+
+[[package]]
+name = "thin-vec"
+version = "0.2.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a38c90d48152c236a3ab59271da4f4ae63d678c5d7ad6b7714d7cb9760be5e4b"
